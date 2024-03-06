@@ -1,0 +1,39 @@
+
+#include <stdio.h>
+
+int reverseNumber(int num) {
+    // Base case: If the number is zero or single-digit, return it.
+    if (num == 0 || num / 10 == 0) {
+        return num;
+    }
+
+    // Calculate the last digit
+    int lastDigit = num % 10;
+
+    // Recursively call the function to reverse the remaining digits
+    int reversedNumber = reverseNumber(num / 10) * 10 + lastDigit;
+
+    // Handle potential overflow for negative numbers
+    if (reversedNumber < INT_MIN || reversedNumber > INT_MAX) {
+        return 0; // Indicate overflow
+    }
+
+    return reversedNumber;
+}
+
+int main() {
+    int number, reversed;
+
+    printf("Enter a number: ");
+    scanf("%d", &number);
+
+    reversed = reverseNumber(number);
+
+    if (reversed == 0) {
+        printf("Error: Overflow occurred.\n");
+    } else {
+        printf("The reverse of %d is %d\n", number, reversed);
+    }
+
+    return 0;
+}  
